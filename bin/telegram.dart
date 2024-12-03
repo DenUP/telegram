@@ -45,6 +45,7 @@ void main() async {
 
   // Старт
   bot.command('start', (ctx) {
+    ctx.deleteMessage();
     // Reply with the menu
     ctx.reply(
       "Привет! 👋 Я – официальный бот Центральной приемной комиссии ППТ.  У меня ты можешь узнать главную информацию о поступлении в наш Техникум 👇",
@@ -59,7 +60,8 @@ void main() async {
     print(err.error);
     print(err.stackTrace);
     print('Ошибка - End');
-    bot.start();
+
+    main();
   });
 }
 
@@ -68,6 +70,7 @@ void main() async {
 Future<void> sposobPadichiCallBack(Context ctx) async {
   if (intButton == 1) return;
   intButton = 1;
+  if (ctx.update.callbackQuery == false) return;
   await ctx.editMessageText(
     """<b>Способы подачи документов:</b>  \n
 📌Лично в Центральную приемную комиссию или в отборочные комиссии факультетов.\n
