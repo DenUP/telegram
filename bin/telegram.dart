@@ -1,7 +1,4 @@
 import 'package:televerse/televerse.dart';
-import 'key.dart';
-
-final key = TelegramKey.apiKey;
 
 var intButton = 0;
 
