@@ -85,7 +85,7 @@ Future<void> sposobPadichiCallBack(Context ctx) async {
     // Удаление меню, после нажатия
     // bot.removeMenu(startMenu);
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
 }
 
@@ -108,7 +108,7 @@ Future<void> documentCallBack(Context ctx) async {
       replyMarkup: startMenu,
     );
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
   // Удаление меню, после нажатия
   // bot.removeMenu(startMenu);
@@ -128,7 +128,7 @@ Future<void> celevoeObychenieCallBack(Context ctx) async {
     bot.removeMenu(startMenu);
     // Удаление меню, после нажатия
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
 }
 
@@ -156,7 +156,7 @@ Future<void> srokipodachidocumentovCallBack(Context ctx) async {
     // bot.removeMenu(startMenu);
     // Удаление меню, после нажатия
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
 }
 
@@ -182,7 +182,7 @@ Future<void> kontaktyCallBack(Context ctx) async {
     // bot.removeMenu(startMenu);
     // Удаление меню, после нажатия
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
 }
 
@@ -201,7 +201,7 @@ Future<void> obshiichatCallBack(Context ctx) async {
     // bot.removeMenu(startMenu);
     // Удаление меню, после нажатия
   } catch (e) {
-    print('Ошибка - ${e}');
+    print('Ошибка - $e');
   }
 }
 
