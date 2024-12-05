@@ -27,6 +27,9 @@ final startMenu = InlineMenu(name: "Start Menu")
     .text("Контакты", kontaktyCallBack, data: 'kontakty')
     .row()
     .text("Общий чат", obshiichatCallBack, data: 'obshichat');
+// .row()
+// .text("Редактировать", redactirovatCallBack,
+//     data: 'redactirovat', options: ScopeOptions(name: 'Denis'));
 
 // Переход в главное меню
 
@@ -46,6 +49,9 @@ void main() async {
 
   // Старт
   bot.command('start', (ctx) {
+    print(ctx.from?.firstName);
+    print(ctx.from?.lastName);
+    print(ctx.from?.username == 'Denup98');
     ctx.deleteMessage();
     // Reply with the menu
     ctx.reply(
@@ -56,6 +62,7 @@ void main() async {
 
   // Start the bot and listen for updates
   await bot.start();
+
   bot.onError((err) {
     print('Ошибка - start');
     print(err.error);
@@ -69,6 +76,9 @@ void main() async {
 // void perexodVglanvoeCallBack
 
 Future<void> sposobPadichiCallBack(Context ctx) async {
+  print(ctx.from?.firstName);
+  print(ctx.from?.lastName);
+  print(ctx.from?.username);
   if (intButton == 1) return;
   intButton = 1;
   try {
@@ -137,6 +147,7 @@ Future<void> documentCallBack(Context ctx) async {
 Future<void> srokipodachidocumentovCallBack(Context ctx) async {
   if (intButton == 4) return;
   intButton = 4;
+
   try {
     await ctx.editMessageText(
       """<b>Сроки подачи документов:</b>  \n
@@ -231,6 +242,26 @@ Future<void> napravlenieCallBack(Context ctx) async {
     // Удаление меню, после нажатия
   } catch (e) {
     print('Ошибка - $e');
+  }
+}
+
+Future<void> redactirovatCallBack(Context ctx) async {
+  if (ctx.from?.username != 'Denup981') {
+    ctx.answerCallbackQuery(text: "У вас нет прав для редактирования! 😢");
+  } else {
+    try {
+      await ctx.editMessageText(
+        """<b>Панель администратора :</b>  \n
+Управление полями
+""",
+        parseMode: ParseMode.html,
+        replyMarkup: startMenu,
+      );
+      // bot.removeMenu(startMenu);
+      // Удаление меню, после нажатия
+    } catch (e) {
+      print('Ошибка - $e');
+    }
   }
 }
 
