@@ -71,11 +71,21 @@ final adminMenu = InlineMenu(name: "adminMenu")
     .text("🔼Главное меню ", kontaktyCallBack, data: 'kontakty')
     .row();
 
+// Скачивание пдф файла
+
+final napravMenu = InlineMenu(name: "napravMenu")
+    .text("Скачать Правила Приема", pdfpravilapriemaCallBack,
+        data: 'pdfpravilapriema')
+    .row()
+    .text("🔼Главное меню ", kontaktyCallBack, data: 'kontakty')
+    .row();
+
 /// Подгрузка бота
 void main() async {
   // Начала бота
 
   bot.attachMenu(startMenu);
+  bot.attachMenu(napravMenu);
 
   // Старт
   bot.command('start', (ctx) {
@@ -106,8 +116,6 @@ void main() async {
 // void perexodVglanvoeCallBack
 
 Future<void> sposobPadichiCallBack(Context ctx) async {
-  print(ctx.from?.firstName);
-  print(ctx.from?.lastName);
   print(ctx.from?.username);
 
   try {
@@ -144,8 +152,6 @@ Future<void> documentCallBack(Context ctx) async {
       parseMode: ParseMode.html,
       replyMarkup: startMenu,
     );
-    await ctx.replyWithDocument(InputFile.fromFile(
-        File('bin/Правила_приема_на_2024_2025_учебный_год.pdf')));
   } catch (e) {
     print('Ошибка - $e');
   }
@@ -238,7 +244,7 @@ Future<void> napravlenieCallBack(Context ctx) async {
 ✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) 
 """,
       parseMode: ParseMode.html,
-      replyMarkup: startMenu,
+      replyMarkup: napravMenu,
     );
     // bot.removeMenu(startMenu);
     // Удаление меню, после нажатия
@@ -247,8 +253,16 @@ Future<void> napravlenieCallBack(Context ctx) async {
   }
 }
 
+void pdfpravilapriemaCallBack(Context ctx) async {
+  try {
+    await ctx.replyWithDocument(InputFile.fromFile(
+        File('bin/Правила_приема_на_2024_2025_учебный_год.pdf')));
+  } catch (e) {
+    print('Ошибка - $e');
+  }
+}
+
 Future<void> redactirovatCallBack(Context ctx) async {
-  // final machino = ;
   if (ctx.from?.username != 'Denup98') {
     ctx.answerCallbackQuery(text: "У вас нет прав для редактирования! 😢");
   } else {
@@ -273,13 +287,4 @@ Future<void> redactirovatCallBack(Context ctx) async {
       print('Ошибка - $e');
     }
   }
-}
-
-// When a user clicks on the "Second" button, the bot will edit the message
-// with "How was that?"
-void finishCallback(Context ctx) async {
-  await ctx.editMessageText("How was that?");
-
-  // Removes the menu listeners from the bot
-  bot.removeMenu(startMenu);
 }
