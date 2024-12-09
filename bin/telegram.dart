@@ -68,6 +68,18 @@ final startMenu = InlineMenu(name: "Start Menu")
 // Переход в главное меню
 
 final adminMenu = InlineMenu(name: "adminMenu")
+    .text("✏️Технология машиностроения", redtexnologimashCallBack,
+        data: 'redtexnologimash')
+    .row()
+    .text("✏️Оператор-наладчик", redoperatornaladchikCallBack,
+        data: 'redoperatornaladchik')
+    .row()
+    .text("✏️Электромонтер по ремонту..", redelectromonterCallBack,
+        data: 'redelectromonter')
+    .row()
+    .text("✏️Технология машиностроения(среднее)", kontaktyCallBack,
+        data: 'kontakty')
+    .row()
     .text("🔼Главное меню ", kontaktyCallBack, data: 'kontakty')
     .row();
 
@@ -86,6 +98,7 @@ void main() async {
 
   bot.attachMenu(startMenu);
   bot.attachMenu(napravMenu);
+  bot.attachMenu(adminMenu);
 
   // Старт
   bot.command('start', (ctx) {
@@ -286,5 +299,80 @@ Future<void> redactirovatCallBack(Context ctx) async {
     } catch (e) {
       print('Ошибка - $e');
     }
+  }
+}
+// Адмиин панель
+
+// Технология машиностроения
+
+void redtexnologimashCallBack(Context ctx) async {
+  try {
+    await ctx.editMessageText(
+      """<b>Изменение заявок Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) очная:</b>  \n
+Впишите количество заявок:
+""",
+      parseMode: ParseMode.html,
+    );
+    bot.onMessage((ctx) async {
+      final String? text = ctx.message?.text!;
+
+      final file = File('bin/value/texnologiiMashinoStroeniya.txt');
+      String contents = await file.readAsString();
+      await file.writeAsString(text ?? '');
+
+      ctx.reply(
+          "Вы успешно изменили 'Технология машиностроения (ПРОФЕССИОНАЛИТЕТ)' - $text",
+          replyMarkup: startMenu);
+    });
+  } catch (e) {
+    print('Ошибка - $e');
+  }
+}
+
+void redoperatornaladchikCallBack(Context ctx) async {
+  try {
+    await ctx.editMessageText(
+      """<b>Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)</b>  \n
+Впишите количество заявок:
+""",
+      parseMode: ParseMode.html,
+    );
+    bot.onMessage((ctx) async {
+      final String? text = ctx.message?.text!;
+
+      final file = File('bin/value/operatorNaladchik.txt');
+      String contents = await file.readAsString();
+      await file.writeAsString(text ?? '');
+
+      ctx.reply(
+          "Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)' - $text",
+          replyMarkup: startMenu);
+    });
+  } catch (e) {
+    print('Ошибка - $e');
+  }
+}
+
+void redelectromonterCallBack(Context ctx) async {
+  try {
+    await ctx.editMessageText(
+      """<b>Электромонтер по ремонту и обслуживанию электрооборудования</b>  \n
+Впишите количество заявок:
+""",
+      parseMode: ParseMode.html,
+    );
+    bot.onMessage((ctx) async {
+      final String? text = ctx.message?.text!;
+
+      final file = File('bin/value/electromonter.txt');
+      String contents = await file.readAsString();
+      await file.writeAsString(text ?? '');
+
+      ctx.reply(
+          "Электромонтер по ремонту и обслуживанию электрооборудования' - $text",
+          replyMarkup: startMenu);
+    });
+  } catch (e) {
+    print('Ошибка - $e');
   }
 }
