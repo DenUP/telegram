@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:televerse/televerse.dart';
 
 var intButton = 0;
+late int texnologiiMashinoStroeniya;
+late int operatorNaladchik;
+late int electroMonter;
+late int texnologiiMashinoStroeniyaZaochno;
 
 /// Creates the bot instance
 final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
@@ -28,20 +32,19 @@ final startMenu = InlineMenu(name: "Start Menu")
     .row()
     .text("Контакты", kontaktyCallBack, data: 'kontakty')
     .row()
-    .text("Общий чат", obshiichatCallBack, data: 'obshichat');
-// .row()
-// .text("Редактировать", redactirovatCallBack,
-//     data: 'redactirovat', options: ScopeOptions(name: 'Denis'));
+    .text("Общий чат", obshiichatCallBack, data: 'obshichat')
+    .row()
+    .text(
+      "Редактировать",
+      redactirovatCallBack,
+      data: 'redactirovat',
+    );
 
 // Переход в главное меню
 
-final glavnoeMenu = InlineMenu(name: "Glavnoe Menu")
+final adminMenu = InlineMenu(name: "admin menu")
     .text("✏️Главное меню ", sposobPadichiCallBack, data: 'podachadocumentov')
     .row();
-
-final celevoeMenu = InlineMenu(name: "Celevoe Menu").text(
-    "Что такое целевое обучение?", sposobPadichiCallBack,
-    data: 'celevoeobychenit');
 
 /// Подгрузка бота
 void main() async {
@@ -232,7 +235,7 @@ Future<void> napravlenieCallBack(Context ctx) async {
 }
 
 Future<void> redactirovatCallBack(Context ctx) async {
-  if (ctx.from?.username != 'Denup981') {
+  if (ctx.from?.username != 'Denup98') {
     ctx.answerCallbackQuery(text: "У вас нет прав для редактирования! 😢");
   } else {
     try {
@@ -241,7 +244,7 @@ Future<void> redactirovatCallBack(Context ctx) async {
 Управление полями
 """,
         parseMode: ParseMode.html,
-        replyMarkup: startMenu,
+        replyMarkup: adminMenu,
       );
       // bot.removeMenu(startMenu);
       // Удаление меню, после нажатия
