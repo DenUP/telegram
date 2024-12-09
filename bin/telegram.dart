@@ -13,31 +13,30 @@ final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
 // Чтение из файлов
 // Технология Машинстроения
 Future<String> readTexnologiOchnay() async {
-  final file = File('bin/value/texnologiiMashinoStroeniya.txt');
-  String contents = await file.readAsString();
-  return contents;
+  final filePath1 = File('bin/value/texnologiiMashinoStroeniya.txt');
+  String contentsOne = await filePath1.readAsString();
+  return contentsOne;
 }
 
 // Оператор Наладчик
 Future<String> readOpertorNaladchik() async {
-  final file = File('bin/value/operatorNaladchik.txt');
-  String contents = await file.readAsString();
-  return contents;
+  final filePath2 = File('bin/value/operatorNaladchik.txt');
+  String contentsTwo = await filePath2.readAsString();
+  return contentsTwo;
 }
 
 // ЭлектроМонтер
 Future<String> readElectroMonter() async {
-  final file = File('bin/value/electromonter.txt');
-  String contents = await file.readAsString();
-  return contents;
+  final filePath3 = File('bin/value/electromonter.txt');
+  String contentsThree = await filePath3.readAsString();
+  return contentsThree;
 }
 // Технология Машинстроение на базе Среднего
 
-// ЭлектроМонтер
-Future<String> readElectroMonterSrednee() async {
-  final file = File('bin/value/texnologiSrednee.txt');
-  String contents = await file.readAsString();
-  return contents;
+Future<String> readTexnologiOchnaySredn() async {
+  final filePath4 = File('bin/value/texnologiSrednee.txt');
+  String contentsFour = await filePath4.readAsString();
+  return contentsFour;
 }
 
 // Create the menu
@@ -77,8 +76,9 @@ final adminMenu = InlineMenu(name: "adminMenu")
     .text("✏️Электромонтер по ремонту..", redelectromonterCallBack,
         data: 'redelectromonter')
     .row()
-    .text("✏️Технология машиностроения(среднее)", kontaktyCallBack,
-        data: 'kontakty')
+    .text(
+        "✏️Технология машиностроения(среднее)", redtexnologimashsredneeCallBack,
+        data: 'redtexnologimashsrednee')
     .row()
     .text("🔼Главное меню ", kontaktyCallBack, data: 'kontakty')
     .row();
@@ -283,7 +283,7 @@ Future<void> redactirovatCallBack(Context ctx) async {
       final texnologiOchnay = await readTexnologiOchnay();
       final operatorNaladchik = await readOpertorNaladchik();
       final electroMonter = await readElectroMonter();
-      final electroMonterSrednee = await readElectroMonterSrednee();
+      final electroMonterSrednee = await readTexnologiOchnaySredn();
       await ctx.editMessageText(
         """<b>Панель администратора :</b>  \n
 ✏ Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) очная - <b> $texnologiOchnay  заявки</b> \n
@@ -305,7 +305,7 @@ Future<void> redactirovatCallBack(Context ctx) async {
 
 // Технология машиностроения
 
-void redtexnologimashCallBack(Context ctx) async {
+Future<void> redtexnologimashCallBack(Context ctx) async {
   try {
     await ctx.editMessageText(
       """<b>Изменение заявок Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) очная:</b>  \n
@@ -314,22 +314,25 @@ void redtexnologimashCallBack(Context ctx) async {
       parseMode: ParseMode.html,
     );
     bot.onMessage((ctx) async {
-      final String? text = ctx.message?.text!;
+      String? text1 = ctx.message?.text;
 
-      final file = File('bin/value/texnologiiMashinoStroeniya.txt');
-      String contents = await file.readAsString();
-      await file.writeAsString(text ?? '');
+      final fileOne = File('bin/value/texnologiiMashinoStroeniya.txt');
+      await fileOne.writeAsString(text1 ?? '');
 
       ctx.reply(
-          "Вы успешно изменили 'Технология машиностроения (ПРОФЕССИОНАЛИТЕТ)' - $text",
-          replyMarkup: startMenu);
+        "<b>Вы успешно изменили </b> 'Технология машиностроения (ПРОФЕССИОНАЛИТЕТ)' - $text1",
+        replyMarkup: startMenu,
+        parseMode: ParseMode.html,
+      );
     });
   } catch (e) {
     print('Ошибка - $e');
   }
 }
 
-void redoperatornaladchikCallBack(Context ctx) async {
+// Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)
+
+Future<void> redoperatornaladchikCallBack(Context ctx) async {
   try {
     await ctx.editMessageText(
       """<b>Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)</b>  \n
@@ -338,22 +341,23 @@ void redoperatornaladchikCallBack(Context ctx) async {
       parseMode: ParseMode.html,
     );
     bot.onMessage((ctx) async {
-      final String? text = ctx.message?.text!;
+      String? text2 = ctx.message?.text;
 
-      final file = File('bin/value/operatorNaladchik.txt');
-      String contents = await file.readAsString();
-      await file.writeAsString(text ?? '');
+      final fileTwo = File('bin/value/operatorNaladchik.txt');
+      await fileTwo.writeAsString(text2 ?? '');
 
-      ctx.reply(
-          "Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)' - $text",
-          replyMarkup: startMenu);
+      await ctx.reply(
+        "<b>Вы успешно изменили </b> - Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)' - $text2",
+        replyMarkup: startMenu,
+        parseMode: ParseMode.html,
+      );
     });
   } catch (e) {
     print('Ошибка - $e');
   }
 }
 
-void redelectromonterCallBack(Context ctx) async {
+Future<void> redelectromonterCallBack(Context ctx) async {
   try {
     await ctx.editMessageText(
       """<b>Электромонтер по ремонту и обслуживанию электрооборудования</b>  \n
@@ -362,16 +366,47 @@ void redelectromonterCallBack(Context ctx) async {
       parseMode: ParseMode.html,
     );
     bot.onMessage((ctx) async {
-      final String? text = ctx.message?.text!;
+      String? text3 = ctx.message?.text;
+      if (text3 != null) {
+        final fileThree = File('bin/value/electromonter.txt');
+        await fileThree.writeAsString(text3);
 
-      final file = File('bin/value/electromonter.txt');
-      String contents = await file.readAsString();
-      await file.writeAsString(text ?? '');
+        await ctx.reply(
+          "<b>Вы успешно изменили </b> - Электромонтер по ремонту и обслуживанию электрооборудования - $text3",
+          replyMarkup: startMenu,
+          parseMode: ParseMode.html,
+        );
+      }
+    }, options: ScopeOptions());
+  } catch (e) {
+    print('Ошибка - $e');
+  }
+}
 
-      ctx.reply(
-          "Электромонтер по ремонту и обслуживанию электрооборудования' - $text",
-          replyMarkup: startMenu);
-    });
+Future<void> redtexnologimashsredneeCallBack(Context ctx) async {
+  try {
+    await ctx.editMessageText(
+      """<b>Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) -  на базе Среднего</b>  \n
+Впишите количество заявок:
+""",
+      parseMode: ParseMode.html,
+    );
+    bot.onMessage(
+      (ctx) async {
+        String? text4 = ctx.message?.text;
+
+        if (text4 != null) {
+          final fileFour = File('bin/value/texnologiSrednee.txt');
+          await fileFour.writeAsString(text4);
+
+          await ctx.reply(
+            "<b>Вы успешно изменили </b> - Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) - на базе Среднего - $text4",
+            replyMarkup: startMenu,
+            parseMode: ParseMode.html,
+          );
+        }
+      },
+    );
   } catch (e) {
     print('Ошибка - $e');
   }
