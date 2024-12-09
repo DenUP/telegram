@@ -1,12 +1,7 @@
 import 'dart:io';
-
 import 'package:televerse/televerse.dart';
 
 var intButton = 0;
-late int texnologiiMashinoStroeniya;
-late int operatorNaladchik;
-late int electroMonter;
-late int texnologiiMashinoStroeniyaZaochno;
 
 /// Creates the bot instance
 final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
@@ -14,6 +9,36 @@ final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
     timeout: Duration(
       seconds: 5,
     ));
+
+// Чтение из файлов
+// Технология Машинстроения
+Future<String> readTexnologiOchnay() async {
+  final file = File('bin/value/texnologiiMashinoStroeniya.txt');
+  String contents = await file.readAsString();
+  return contents;
+}
+
+// Оператор Наладчик
+Future<String> readOpertorNaladchik() async {
+  final file = File('bin/value/operatorNaladchik.txt');
+  String contents = await file.readAsString();
+  return contents;
+}
+
+// ЭлектроМонтер
+Future<String> readElectroMonter() async {
+  final file = File('bin/value/electromonter.txt');
+  String contents = await file.readAsString();
+  return contents;
+}
+// Технология Машинстроение на базе Среднего
+
+// ЭлектроМонтер
+Future<String> readElectroMonterSrednee() async {
+  final file = File('bin/value/texnologiSrednee.txt');
+  String contents = await file.readAsString();
+  return contents;
+}
 
 // Create the menu
 // Data в меню не может иметь заглавные буквы - Error
@@ -42,8 +67,8 @@ final startMenu = InlineMenu(name: "Start Menu")
 
 // Переход в главное меню
 
-final adminMenu = InlineMenu(name: "admin menu")
-    .text("✏️Главное меню ", sposobPadichiCallBack, data: 'podachadocumentov')
+final adminMenu = InlineMenu(name: "adminMenu")
+    .text("🔼Главное меню ", kontaktyCallBack, data: 'kontakty')
     .row();
 
 /// Подгрузка бота
@@ -84,8 +109,7 @@ Future<void> sposobPadichiCallBack(Context ctx) async {
   print(ctx.from?.firstName);
   print(ctx.from?.lastName);
   print(ctx.from?.username);
-  if (intButton == 1) return;
-  intButton = 1;
+
   try {
     await ctx.editMessageText(
       """<b>Способы подачи документов:</b>  \n
@@ -106,8 +130,6 @@ Future<void> sposobPadichiCallBack(Context ctx) async {
 
 // Документы для поступления
 Future<void> documentCallBack(Context ctx) async {
-  if (intButton == 2) return;
-  intButton = 2;
   try {
     await ctx.editMessageText(
       """<b>Документы для поступления:</b>  \n
@@ -134,9 +156,6 @@ Future<void> documentCallBack(Context ctx) async {
 // Сроки подачи документов
 
 Future<void> srokipodachidocumentovCallBack(Context ctx) async {
-  if (intButton == 4) return;
-  intButton = 4;
-
   try {
     await ctx.editMessageText(
       """<b>Сроки подачи документов:</b>  \n
@@ -163,8 +182,6 @@ Future<void> srokipodachidocumentovCallBack(Context ctx) async {
 // Контакты
 
 Future<void> kontaktyCallBack(Context ctx) async {
-  if (intButton == 5) return;
-  intButton = 5;
   try {
     await ctx.editMessageText(
       """<b>Контакты:</b>  \n
@@ -191,11 +208,9 @@ Future<void> kontaktyCallBack(Context ctx) async {
 
 // Общий чат
 Future<void> obshiichatCallBack(Context ctx) async {
-  if (intButton == 6) return;
-  intButton = 6;
   try {
     await ctx.editMessageText(
-      """<b>Общий чат:</b>  \n
+      """<b>В этом чате вы можете задавать вопросы, которые вас интересуют:</b>  \n
 <a href="https://t.me/+LJqOBeoBssg3Mzgy">"Вступить в общий чат"</a>
 """,
       parseMode: ParseMode.html,
@@ -211,8 +226,6 @@ Future<void> obshiichatCallBack(Context ctx) async {
 // Направление образования
 
 Future<void> napravlenieCallBack(Context ctx) async {
-  if (intButton == 7) return;
-  intButton = 7;
   try {
     await ctx.editMessageText(
       """<b>Направления подготовки :</b>  \n
@@ -222,7 +235,7 @@ Future<void> napravlenieCallBack(Context ctx) async {
 ✏️ 15.01.38 Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)
 ✏️ 13.01.10 Электромонтер по ремонту и обслуживанию электрооборудования (по отраслям) \n
 <b>Программы подготовки специалистов среднего звена на базе среднего общего образования (очно-заочная форма обучения)</b>
-✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ)
+✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) 
 """,
       parseMode: ParseMode.html,
       replyMarkup: startMenu,
@@ -235,13 +248,21 @@ Future<void> napravlenieCallBack(Context ctx) async {
 }
 
 Future<void> redactirovatCallBack(Context ctx) async {
+  // final machino = ;
   if (ctx.from?.username != 'Denup98') {
     ctx.answerCallbackQuery(text: "У вас нет прав для редактирования! 😢");
   } else {
     try {
+      final texnologiOchnay = await readTexnologiOchnay();
+      final operatorNaladchik = await readOpertorNaladchik();
+      final electroMonter = await readElectroMonter();
+      final electroMonterSrednee = await readElectroMonterSrednee();
       await ctx.editMessageText(
         """<b>Панель администратора :</b>  \n
-Управление полями
+✏ Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) очная - <b> $texnologiOchnay  заявки</b> \n
+✏ Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ) - <b> $operatorNaladchik  заявки</b> \n
+✏ Электромонтер по ремонту и обслуживанию электрооборудования - <b> $electroMonter  заявки</b> \n
+✏ Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) <b>на базе Среднего</b> -  <b> $electroMonterSrednee  заявки</b>
 """,
         parseMode: ParseMode.html,
         replyMarkup: adminMenu,
