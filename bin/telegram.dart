@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:televerse/televerse.dart';
 
 var intButton = 0;
 
 /// Creates the bot instance
-final bot = Bot('7671338190:AAHd8wv-mbZoLEUiQsm6onrao00YdE1-7Is',
+final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
     fetcher: LongPolling.allUpdates(),
     timeout: Duration(
       seconds: 5,
@@ -117,30 +119,14 @@ Future<void> documentCallBack(Context ctx) async {
       parseMode: ParseMode.html,
       replyMarkup: startMenu,
     );
+    await ctx.replyWithDocument(InputFile.fromFile(
+        File('bin/Правила_приема_на_2024_2025_учебный_год.pdf')));
   } catch (e) {
     print('Ошибка - $e');
   }
   // Удаление меню, после нажатия
   // bot.removeMenu(startMenu);
 }
-
-// Целевое обучение
-// Future<void> celevoeObychenieCallBack(Context ctx) async {
-//   if (intButton == 3) return;
-//   intButton = 3;
-//   try {
-//     await ctx.reply(
-//       """<b>Целевое обучение:</b>  \n
-// Крутой нас """,
-//       parseMode: ParseMode.html,
-//       replyMarkup: celevoeMenu,
-//     );
-//     bot.removeMenu(startMenu);
-//     // Удаление меню, после нажатия
-//   } catch (e) {
-//     print('Ошибка - $e');
-//   }
-// }
 
 // Сроки подачи документов
 

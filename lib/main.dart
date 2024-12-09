@@ -3,7 +3,7 @@ import 'package:televerse/televerse.dart';
 var intButton = 0;
 
 /// Creates the bot instance
-final bot = Bot('7671338190:AAHd8wv-mbZoLEUiQsm6onrao00YdE1-7Is',
+final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
     fetcher: LongPolling.allUpdates(),
     timeout: Duration(
       seconds: 5,
