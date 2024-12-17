@@ -1,7 +1,5 @@
 import 'package:televerse/televerse.dart';
 
-var intButton = 0;
-
 /// Creates the bot instance
 final bot = Bot('7671338190:AAEQyuiOubK1sZJ1zUOVxLXU7CUDZA9yajI',
     fetcher: LongPolling.allUpdates(),
@@ -66,8 +64,6 @@ void main() async {
 // void perexodVglanvoeCallBack
 
 Future<void> sposobPadichiCallBack(Context ctx) async {
-  if (intButton == 1) return;
-  intButton = 1;
   await ctx.editMessageText(
     """<b>Способы подачи документов:</b>  \n
 📌Лично в Центральную приемную комиссию или в отборочные комиссии факультетов.\n
@@ -84,8 +80,6 @@ Future<void> sposobPadichiCallBack(Context ctx) async {
 
 // Документы для поступления
 Future<void> documentCallBack(Context ctx) async {
-  if (intButton == 2) return;
-  intButton = 2;
   await ctx.editMessageText(
     """<b>Документы для поступления:</b>  \n
 1. <b>Заявление о поступлении</b> - заполняется в установленной форме.
@@ -106,8 +100,6 @@ Future<void> documentCallBack(Context ctx) async {
 
 // Целевое обучение
 Future<void> celevoeObychenieCallBack(Context ctx) async {
-  if (intButton == 3) return;
-  intButton = 3;
   print(ctx.id.id);
   await ctx.reply(
     """<b>Целевое обучение:</b>  \n
@@ -122,8 +114,6 @@ Future<void> celevoeObychenieCallBack(Context ctx) async {
 // Сроки подачи документов
 
 Future<void> srokipodachidocumentovCallBack(Context ctx) async {
-  if (intButton == 4) return;
-  intButton = 4;
   await ctx.editMessageText(
     """<b>Сроки подачи документов:</b>  \n
 ✏️ Прием документов на очную, очно-заочную формы обучения
@@ -146,8 +136,6 @@ Future<void> srokipodachidocumentovCallBack(Context ctx) async {
 // Контакты
 
 Future<void> kontaktyCallBack(Context ctx) async {
-  if (intButton == 5) return;
-  intButton = 5;
   await ctx.editMessageText(
     """<b>Контакты:</b>  \n
 🏡 Место нахождения/почтовый адрес: 607762, Нижегородская область, город Первомайск, улица Юбилейная, дом 24 \n
@@ -167,8 +155,6 @@ Future<void> kontaktyCallBack(Context ctx) async {
 
 // Общий чат
 Future<void> obshiichatCallBack(Context ctx) async {
-  if (intButton == 6) return;
-  intButton = 6;
   await ctx.editMessageText(
     """<b>Общий чат:</b>  \n
 <a href="https://t.me/+LJqOBeoBssg3Mzgy">"Вступить в общий чат"</a>

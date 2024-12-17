@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:televerse/televerse.dart';
 
-var intButton = 0;
-
 /// Creates the bot instance
 final bot = Bot('7671338190:AAEhTpHmZg6Pm0HXH-WV0zuh_BuvzuLRmPk',
     fetcher: LongPolling.allUpdates(),
@@ -102,9 +100,7 @@ void main() async {
 
   // Старт
   bot.command('start', (ctx) {
-    print(ctx.from?.firstName);
-    print(ctx.from?.lastName);
-    print(ctx.from?.username == 'Denup98');
+    print(ctx.from?.username);
     ctx.deleteMessage();
     // Reply with the menu
     ctx.reply(
@@ -246,15 +242,23 @@ Future<void> obshiichatCallBack(Context ctx) async {
 
 Future<void> napravlenieCallBack(Context ctx) async {
   try {
+    final texnologiOchnay = await readTexnologiOchnay();
+    final operatorNaladchik = await readOpertorNaladchik();
+    final electroMonter = await readElectroMonter();
+    final electroMonterSrednee = await readTexnologiOchnaySredn();
     await ctx.editMessageText(
       """<b>Направления подготовки :</b>  \n
 <b>Программа подготовки специалистов среднего звена на базе основного общего образования (очная форма обучения)</b>
-✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) \n
-<b>Программы подготовки квалифицированных рабочих(служащих) на базе основного общего образования (очная форма обучения)</b>
-✏️ 15.01.38 Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ)
-✏️ 13.01.10 Электромонтер по ремонту и обслуживанию электрооборудования (по отраслям) \n
-<b>Программы подготовки специалистов среднего звена на базе среднего общего образования (очно-заочная форма обучения)</b>
 ✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) 
+✅ Количество поданных документов: <b> $texnologiOchnay </b> \n
+<b>Программы подготовки квалифицированных рабочих(служащих) на базе основного общего образования (очная форма обучения)</b> \n
+✏️ 15.01.38 Оператор-наладчик металлообрабатывающих станков (ПРОФЕССИОНАЛИТЕТ) 
+✅ Количество поданных документов: <b> $operatorNaladchik </b> \n 
+✏️ 13.01.10 Электромонтер по ремонту и обслуживанию электрооборудования (по отраслям) 
+✅ Количество поданных документов: <b> $electroMonter </b> \n
+<b>Программы подготовки специалистов среднего звена на базе среднего общего образования (очно-заочная форма обучения)</b> \n
+✏️ 15.02.16 Технология машиностроения (ПРОФЕССИОНАЛИТЕТ) 
+✅ Количество поданных документов: <b> $electroMonterSrednee </b> \n
 """,
       parseMode: ParseMode.html,
       replyMarkup: napravMenu,
